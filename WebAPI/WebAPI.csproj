@@ -12,11 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DiagnosticContext\DiagnosticContext.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Services\" />
+      <ProjectReference Include="..\DiagnosticContextLib\DiagnosticContextLib.csproj" />
     </ItemGroup>
 
 </Project>
