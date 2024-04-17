@@ -13,12 +13,6 @@ public class DiagnosticContextMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        var path = context.Request.Path.ToString();
-        if (path == "/metrics")
-        {
-            await _next(context);
-            return;
-        }
         DiagnosticContext.SetEntryPoint(context.Request.Path.ToString());
         await _next(context);
     }
