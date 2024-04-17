@@ -33,5 +33,4 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-app.UseMiddleware<DiagnosticContextMiddleware>();
 app.Run();

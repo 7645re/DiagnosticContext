@@ -5,7 +5,7 @@ namespace DiagnosticContextLib
 {
     public class DiagnosticContext : IDiagnosticContext
     {
-        private static readonly AsyncLocal<string> EntryPoint = new();
+        private string? _entryPoint;
 
         private readonly Gauge _metricGaugeDuration = Metrics.CreateGauge(
             "method_execution_duration",
@@ -16,13 +16,10 @@ namespace DiagnosticContextLib
             }
         );
 
-        public static void SetEntryPoint(string entryPoint)
-        {
-            EntryPoint.Value = entryPoint;
-        }
-
         public IDisposable Measure(string methodName)
         {
+            _entryPoint ??= methodName;
+            
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
@@ -30,7 +27,7 @@ namespace DiagnosticContextLib
             {
                 stopwatch.Stop();
                 var duration = stopwatch.ElapsedMilliseconds;
-                _metricGaugeDuration.WithLabels(methodName, EntryPoint.Value).Set(duration);
+                _metricGaugeDuration.WithLabels(methodName, _entryPoint).Set(duration);
             });
         }
 

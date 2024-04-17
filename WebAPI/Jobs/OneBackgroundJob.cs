@@ -25,7 +25,6 @@ public class OneBackgroundJob : BackgroundService
             var serviceTwo = scope.ServiceProvider.GetRequiredService<IServiceTwo>();
             var diagnosticContext = scope.ServiceProvider.GetRequiredService<IDiagnosticContext>();
             
-            DiagnosticContext.SetEntryPoint($"{nameof(OneBackgroundJob)}.{nameof(ExecuteAsync)}");
             using (diagnosticContext.Measure($"{nameof(OneBackgroundJob)}.{nameof(ExecuteAsync)}"))
             {
                 await serviceTwo.MethodOne();
